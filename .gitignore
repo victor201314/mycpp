@@ -1,0 +1,7 @@
+# 构建产物(每章目录内)
+**/build/
+**/target/
+.vscode/
+chapt-template/
+# macOS 系统文件
+.DS_Store

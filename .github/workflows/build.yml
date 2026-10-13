@@ -1,0 +1,16 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build-chapters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 构建所有章节
+        run: |
+          set -e
+          find . -mindepth 2 -maxdepth 2 -name CMakeLists.txt -not -path './.git/*' -print | while read -r file; do
+            dir=$(dirname "$file")
+            echo "=== 构建 $dir ==="
+            cmake -S "$dir" -B "$dir/build" -DCMAKE_BUILD_TYPE=Debug
+            cmake --build "$dir/build"
+          done
